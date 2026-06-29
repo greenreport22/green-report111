@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Green Report – Discover. Connect. Grow.</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-900: #0a2e18;
+    --green-800: #134d2a;
+    --green-700: #1a6b3a;
+    --green-600: #22883f;
+    --green-500: #28a745;
+    --green-400: #48c26a;
+    --green-300: #7dd99a;
+    --green-100: #e6f7ec;
+    --green-50:  #f2fbf5;
+    --white: #ffffff;
+    --gray-900: #1a1f23;
+    --gray-800: #2d3440;
+    --gray-700: #3f4a5a;
+    --gray-500: #6b7a8d;
+    --gray-300: #c3cdd8;
+    --gray-100: #f4f6f8;
+    --radius: 14px;
+    --radius-sm: 8px;
+    --shadow-card: 0 4px 24px rgba(10,46,24,0.08);
+    --shadow-hover: 0 8px 40px rgba(10,46,24,0.16);
+    --transition: 0.22s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; color: var(--gray-900); background: var(--white); overflow-x: hidden; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 68px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(40,167,69,0.1);
+    box-shadow: 0 2px 20px rgba(10,46,24,0.06);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo-mark {
+    width: 36px; height: 36px; border-radius: 9px;
+    background: linear-gradient(135deg, var(--green-500), var(--green-700));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; box-shadow: 0 3px 10px rgba(40,167,69,0.35);
+  }
+  .nav-logo-text { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--gray-900); }
+  .nav-logo-text span { color: var(--green-600); }
+  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links a { text-decoration: none; font-size: 0.9rem; font-weight: 500; color: var(--gray-700); transition: color var(--transition); }
+  .nav-links a:hover { color: var(--green-600); }
+  .nav-cta {
+    background: var(--green-500); color: var(--white);
+    border: none; border-radius: var(--radius-sm);
+    padding: 10px 22px; font-size: 0.88rem; font-weight: 600;
+    cursor: pointer; transition: background var(--transition), transform var(--transition);
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--green-700); transform: translateY(-1px); }
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .nav-hamburger span { width: 24px; height: 2px; background: var(--gray-800); border-radius: 2px; transition: var(--transition); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--green-900) 0%, var(--green-800) 40%, var(--green-700) 70%, var(--green-600) 100%);
+    display: flex; align-items: center; justify-content: center;
+    padding: 100px 5% 60px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-blob {
+    position: absolute; width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(72,194,106,0.15) 0%, transparent 70%);
+    top: -100px; right: -100px; pointer-events: none;
+  }
+  .hero-blob-2 {
+    position: absolute; width: 400px; height: 400px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(125,217,154,0.1) 0%, transparent 70%);
+    bottom: 0; left: 10%; pointer-events: none;
+  }
+  .hero-inner { max-width: 820px; text-align: center; position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50px; padding: 8px 18px; margin-bottom: 32px;
+    font-size: 0.82rem; color: var(--green-300); font-weight: 500; letter-spacing: 0.5px;
+    backdrop-filter: blur(8px);
+  }
+  .hero-badge::before { content: '●'; color: var(--green-400); font-size: 0.6rem; }
+  .hero h1 {
+    font-family: 'Sora', sans-serif; font-weight: 800;
+    font-size: clamp(2.6rem, 6vw, 4.4rem);
+    line-height: 1.1; color: var(--white); margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 .accent { color: var(--green-300); }
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: rgba(255,255,255,0.75); line-height: 1.7;
+    max-width: 540px; margin: 0 auto 40px;
+  }
+  .search-bar {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--white); border-radius: 50px;
+    padding: 8px 8px 8px 24px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+    max-width: 620px; margin: 0 auto 36px;
+    border: 2px solid transparent;
+    transition: border var(--transition), box-shadow var(--transition);
+  }
+  .search-bar:focus-within { border-color: var(--green-400); box-shadow: 0 8px 40px rgba(40,167,69,0.25); }
+  .search-bar input {
+    flex: 1; border: none; outline: none;
+    font-size: 0.95rem; color: var(--gray-800); background: transparent;
+    font-family: 'Inter', sans-serif;
+  }
+  .search-bar input::placeholder { color: var(--gray-500); }
+  .search-btn {
+    background: var(--green-500); color: var(--white);
+    border: none; border-radius: 50px;
+    padding: 12px 26px; font-size: 0.9rem; font-weight: 600;
+    cursor: pointer; transition: background var(--transition), transform var(--transition);
+    white-space: nowrap;
+  }
+  .search-btn:hover { background: var(--green-700); transform: scale(1.03); }
+  .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--green-400); color: var(--white);
+    border: none; border-radius: var(--radius-sm);
+    padding: 14px 28px; font-size: 0.95rem; font-weight: 600;
+    cursor: pointer; transition: all var(--transition); text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--green-300); color: var(--green-900); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(72,194,106,0.4); }
+  .btn-outline {
+    background: transparent; color: var(--white);
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: var(--radius-sm);
+    padding: 14px 28px; font-size: 0.95rem; font-weight: 600;
+    cursor: pointer; transition: all var(--transition); text-decoration: none; display: inline-block;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: var(--white); transform: translateY(-2px); }
+  .hero-stats {
+    display: flex; gap: 48px; justify-content: center;
+    margin-top: 56px; padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-num { font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800; color: var(--white); }
+  .hero-stat-label { font-size: 0.82rem; color: rgba(255,255,255,0.55); margin-top: 4px; letter-spacing: 0.5px; }
+
+  /* ── SECTION COMMONS ── */
+  section { padding: 96px 5%; }
+  .section-eyebrow { font-size: 0.78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green-600); margin-bottom: 12px; }
+  .section-title { font-family: 'Sora', sans-serif; font-weight: 700; font-size: clamp(1.7rem, 3vw, 2.4rem); color: var(--gray-900); line-height: 1.2; margin-bottom: 16px; }
+  .section-sub { font-size: 1rem; color: var(--gray-500); max-width: 520px; line-height: 1.7; }
+  .section-header { margin-bottom: 56px; }
+  .section-header.center { text-align: center; }
+  .section-header.center .section-sub { margin: 0 auto; }
+
+  /* ── FEATURES ── */
+  .features { background: var(--gray-100); }
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+  .feature-card {
+    background: var(--white); border-radius: var(--radius);
+    padding: 32px 28px; border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: var(--shadow-card);
+    transition: transform var(--transition), box-shadow var(--transition);
+    cursor: default;
+  }
+  .feature-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+  .feature-icon {
+    width: 52px; height: 52px; border-radius: 13px;
+    background: var(--green-100);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin-bottom: 20px;
+  }
+  .feature-card h3 { font-family: 'Sora', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--gray-900); margin-bottom: 10px; }
+  .feature-card p { font-size: 0.9rem; color: var(--gray-500); line-height: 1.65; }
+  .feature-card .feature-tag {
+    display: inline-block; margin-top: 16px;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.8px;
+    text-transform: uppercase; color: var(--green-600);
+    background: var(--green-100); border-radius: 50px; padding: 4px 12px;
+  }
+
+  /* ── MAP ── */
+  .map-section { background: var(--white); }
+  .map-container { display: grid; grid-template-columns: 1fr 340px; gap: 24px; min-height: 480px; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-hover); border: 1px solid var(--gray-300); }
+  .map-canvas {
+    background: linear-gradient(145deg, #e8f5e9 0%, #c8e6c9 30%, #a5d6a7 60%, #81c784 100%);
+    position: relative; overflow: hidden; min-height: 340px;
+  }
+  .map-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  /* Roads */
+  .road { position: absolute; background: rgba(255,255,255,0.85); }
+  .road-h1 { top: 38%; left: 0; right: 0; height: 8px; border-radius: 4px; }
+  .road-h2 { top: 64%; left: 0; right: 0; height: 5px; border-radius: 4px; }
+  .road-v1 { left: 28%; top: 0; bottom: 0; width: 8px; border-radius: 4px; }
+  .road-v2 { left: 55%; top: 0; bottom: 0; width: 5px; border-radius: 4px; }
+  .road-v3 { left: 78%; top: 0; bottom: 0; width: 5px; border-radius: 4px; }
+  /* Blocks */
+  .block { position: absolute; border-radius: 6px; background: rgba(255,255,255,0.4); }
+  /* Markers */
+  .map-marker {
+    position: absolute; transform: translate(-50%, -100%);
+    display: flex; flex-direction: column; align-items: center; cursor: pointer;
+    transition: transform var(--transition);
+    z-index: 5;
+  }
+  .map-marker:hover { transform: translate(-50%, -100%) scale(1.15); z-index: 10; }
+  .marker-pin {
+    width: 36px; height: 36px; border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  }
+  .marker-pin span { transform: rotate(45deg); font-size: 15px; display: block; }
+  .marker-pin.green { background: var(--green-500); }
+  .marker-pin.dark  { background: var(--green-800); }
+  .marker-pin.light { background: var(--green-400); }
+  .marker-label {
+    background: var(--white); border-radius: 6px; padding: 3px 8px;
+    font-size: 0.68rem; font-weight: 600; color: var(--gray-800);
+    margin-top: 4px; white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .map-panel {
+    background: var(--white); padding: 28px 24px; overflow-y: auto;
+    border-left: 1px solid var(--gray-100);
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .map-panel h3 { font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 700; color: var(--gray-900); margin-bottom: 16px; }
+  .nearby-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px; border-radius: 10px;
+    transition: background var(--transition); cursor: pointer;
+  }
+  .nearby-item:hover { background: var(--green-50); }
+  .nearby-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--green-100); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .nearby-info { flex: 1; min-width: 0; }
+  .nearby-name { font-size: 0.88rem; font-weight: 600; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .nearby-meta { font-size: 0.75rem; color: var(--gray-500); margin-top: 2px; }
+  .nearby-dist { font-size: 0.75rem; font-weight: 600; color: var(--green-600); flex-shrink: 0; }
+  .map-user-dot { position: absolute; top: 50%; left: 45%; transform: translate(-50%,-50%); z-index: 6; }
+  .user-pulse { width: 20px; height: 20px; border-radius: 50%; background: #2196F3; border: 3px solid white; box-shadow: 0 2px 8px rgba(33,150,243,0.5); position: relative; }
+  .user-pulse::after { content: ''; position: absolute; inset: -6px; border-radius: 50%; background: rgba(33,150,243,0.2); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0; } }
+
+  /* ── BUSINESSES ── */
+  .businesses { background: var(--gray-100); }
+  .biz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
+  .biz-card {
+    background: var(--white); border-radius: var(--radius);
+    overflow: hidden; border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: var(--shadow-card);
+    transition: transform var(--transition), box-shadow var(--transition);
+    cursor: pointer;
+  }
+  .biz-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+  .biz-thumb { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 48px; position: relative; overflow: hidden; }
+  .biz-body { padding: 20px; }
+  .biz-cat { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: var(--green-600); margin-bottom: 6px; }
+  .biz-name { font-family: 'Sora', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--gray-900); margin-bottom: 10px; }
+  .stars { color: #f59e0b; font-size: 0.85rem; }
+  .biz-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+  .biz-loc { font-size: 0.78rem; color: var(--gray-500); display: flex; align-items: center; gap: 4px; }
+  .biz-badge { font-size: 0.7rem; font-weight: 600; background: var(--green-100); color: var(--green-700); border-radius: 50px; padding: 3px 10px; }
+  .verified-badge { font-size: 0.7rem; font-weight: 600; background: #e0f2fe; color: #0369a1; border-radius: 50px; padding: 3px 10px; }
+
+  /* ── RENTALS ── */
+  .rentals { background: var(--white); }
+  .rentals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 28px; }
+  .rental-card {
+    border-radius: var(--radius); overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.07);
+    box-shadow: var(--shadow-card);
+    transition: transform var(--transition), box-shadow var(--transition);
+    cursor: pointer;
+  }
+  .rental-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+  .rental-img {
+    height: 200px; display: flex; align-items: center; justify-content: center;
+    font-size: 64px; position: relative; overflow: hidden;
+  }
+  .rental-tag {
+    position: absolute; top: 14px; left: 14px;
+    background: var(--green-500); color: var(--white);
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.5px;
+    border-radius: 6px; padding: 5px 12px;
+  }
+  .rental-fav {
+    position: absolute; top: 14px; right: 14px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; cursor: pointer;
+    transition: background var(--transition);
+  }
+  .rental-fav:hover { background: var(--white); }
+  .rental-body { padding: 20px; background: var(--white); }
+  .rental-price { font-family: 'Sora', sans-serif; font-size: 1.3rem; font-weight: 800; color: var(--green-700); }
+  .rental-price span { font-size: 0.82rem; font-weight: 400; color: var(--gray-500); }
+  .rental-name { font-weight: 600; font-size: 0.95rem; color: var(--gray-900); margin: 6px 0 4px; }
+  .rental-loc { font-size: 0.8rem; color: var(--gray-500); display: flex; align-items: center; gap: 4px; }
+  .rental-specs { display: flex; gap: 16px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--gray-100); }
+  .rental-spec { font-size: 0.78rem; color: var(--gray-600); display: flex; align-items: center; gap: 4px; }
+
+  /* ── AI ASSISTANT ── */
+  .ai-section { background: var(--gray-100); }
+  .ai-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .ai-copy .section-sub { margin-bottom: 32px; }
+  .ai-feature-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .ai-feature-list li {
+    display: flex; align-items: flex-start; gap: 14px;
+    font-size: 0.92rem; color: var(--gray-700); line-height: 1.5;
+  }
+  .ai-feature-list li::before {
+    content: '✓'; flex-shrink: 0;
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--green-500); color: var(--white);
+    font-size: 0.75rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
+  .chat-window {
+    background: var(--white); border-radius: var(--radius);
+    box-shadow: var(--shadow-hover); overflow: hidden;
+    border: 1px solid var(--gray-300);
+  }
+  .chat-header {
+    background: linear-gradient(135deg, var(--green-800), var(--green-600));
+    padding: 16px 20px; display: flex; align-items: center; gap: 12px;
+  }
+  .chat-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--green-400); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .chat-header-info { flex: 1; }
+  .chat-header-name { font-family: 'Sora', sans-serif; font-size: 0.92rem; font-weight: 700; color: var(--white); }
+  .chat-header-status { font-size: 0.72rem; color: rgba(255,255,255,0.65); display: flex; align-items: center; gap: 5px; }
+  .chat-header-status::before { content: '●'; color: #7dd99a; font-size: 0.6rem; }
+  .chat-messages { padding: 20px; display: flex; flex-direction: column; gap: 14px; max-height: 320px; overflow-y: auto; }
+  .msg { display: flex; gap: 10px; max-width: 90%; }
+  .msg.user { flex-direction: row-reverse; align-self: flex-end; }
+  .msg-avatar { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .msg-bot .msg-avatar { background: var(--green-100); }
+  .msg-user .msg-avatar { background: var(--green-500); color: white; font-size: 12px; }
+  .msg-bubble { padding: 12px 16px; border-radius: 16px; font-size: 0.88rem; line-height: 1.5; }
+  .msg-bot .msg-bubble { background: var(--gray-100); color: var(--gray-800); border-radius: 4px 16px 16px 16px; }
+  .msg-user .msg-bubble { background: var(--green-500); color: var(--white); border-radius: 16px 4px 16px 16px; }
+  .chat-input-row { padding: 16px; border-top: 1px solid var(--gray-100); display: flex; gap: 10px; }
+  .chat-input {
+    flex: 1; border: 1px solid var(--gray-300); border-radius: 50px;
+    padding: 10px 18px; font-size: 0.88rem; font-family: 'Inter', sans-serif;
+    outline: none; color: var(--gray-800);
+    transition: border var(--transition);
+  }
+  .chat-input:focus { border-color: var(--green-400); }
+  .chat-send {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--green-500); color: var(--white);
+    border: none; font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background var(--transition), transform var(--transition);
+  }
+  .chat-send:hover { background: var(--green-700); transform: scale(1.08); }
+  .suggestion-chips { padding: 0 20px 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-size: 0.76rem; padding: 6px 14px; border-radius: 50px;
+    border: 1px solid var(--green-300); color: var(--green-700);
+    background: var(--green-50); cursor: pointer;
+    transition: all var(--transition);
+  }
+  .chip:hover { background: var(--green-500); color: var(--white); border-color: var(--green-500); }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: linear-gradient(135deg, var(--green-900) 0%, var(--green-800) 50%, var(--green-700) 100%);
+    text-align: center; padding: 100px 5%; position: relative; overflow: hidden;
+  }
+  .cta-section::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.025'%3E%3Ccircle cx='40' cy='40' r='30'/%3E%3C/g%3E%3C/svg%3E"); }
+  .cta-section h2 { font-family: 'Sora', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; color: var(--white); margin-bottom: 16px; position: relative; }
+  .cta-section p { font-size: 1.05rem; color: rgba(255,255,255,0.7); max-width: 480px; margin: 0 auto 48px; position: relative; }
+  .app-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; position: relative; }
+  .app-btn {
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.25);
+    border-radius: var(--radius-sm); padding: 14px 24px;
+    color: var(--white); text-decoration: none;
+    transition: all var(--transition); cursor: pointer;
+    backdrop-filter: blur(8px);
+  }
+  .app-btn:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.5); transform: translateY(-2px); }
+  .app-btn-icon { font-size: 28px; }
+  .app-btn-text { text-align: left; }
+  .app-btn-sub { font-size: 0.7rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.5px; }
+  .app-btn-name { font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 700; }
+  .cta-divider { position: relative; }
+  .cta-divider::before { content: ''; display: block; border-top: 1px solid rgba(255,255,255,0.15); margin-bottom: 28px; }
+  .cta-biz-btn {
+    background: var(--green-400); color: var(--green-900);
+    border: none; border-radius: var(--radius-sm);
+    padding: 16px 36px; font-size: 1rem; font-weight: 700;
+    cursor: pointer; transition: all var(--transition);
+    font-family: 'Sora', sans-serif;
+    position: relative;
+  }
+  .cta-biz-btn:hover { background: var(--green-300); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(72,194,106,0.4); }
+
+  /* ── FOOTER ── */
+  footer { background: var(--gray-900); padding: 60px 5% 32px; }
+  .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-brand .nav-logo { margin-bottom: 16px; display: inline-flex; }
+  .footer-brand p { font-size: 0.88rem; color: rgba(255,255,255,0.5); line-height: 1.7; max-width: 280px; }
+  .footer-col h4 { font-family: 'Sora', sans-serif; font-size: 0.88rem; font-weight: 700; color: var(--white); margin-bottom: 16px; }
+  .footer-col a { display: block; font-size: 0.85rem; color: rgba(255,255,255,0.45); text-decoration: none; margin-bottom: 10px; transition: color var(--transition); }
+  .footer-col a:hover { color: var(--green-400); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: gap; gap: 12px; }
+  .footer-bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+  .footer-social { display: flex; gap: 12px; }
+  .social-btn { width: 36px; height: 36px; border-radius: 9px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-size: 16px; transition: background var(--transition); cursor: pointer; text-decoration: none; color: white; }
+  .social-btn:hover { background: var(--green-600); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    .ai-inner { grid-template-columns: 1fr; gap: 40px; }
+    .map-container { grid-template-columns: 1fr; }
+    .map-panel { max-height: 280px; }
+    .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+  @media (max-width: 680px) {
+    nav { padding: 0 4%; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .hero-stats { gap: 28px; }
+    .hero-stat-num { font-size: 1.5rem; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .app-btns { flex-direction: column; align-items: center; }
+  }
+
+  /* Animations */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  .delay-1 { transition-delay: 0.1s; }
+  .delay-2 { transition-delay: 0.2s; }
+  .delay-3 { transition-delay: 0.3s; }
+  .delay-4 { transition-delay: 0.4s; }
+  .delay-5 { transition-delay: 0.5s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-mark">🌿</div>
+    <span class="nav-logo-text">Green<span>Report</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#map">Map</a>
+    <a href="#businesses">Businesses</a>
+    <a href="#rentals">Rentals</a>
+    <a href="#ai">AI Assistant</a>
+  </div>
+  <a href="#cta" class="nav-cta">Get Started</a>
+  <div class="nav-hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-blob"></div>
+  <div class="hero-blob-2"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">AI-Powered Local Discovery Platform</div>
+    <h1>Discover. Connect. <span class="accent">Grow.</span></h1>
+    <p class="hero-sub">Find trusted businesses, rentals, products, and services near you — all powered by AI that understands your community.</p>
+    <div class="search-bar">
+      <input type="text" placeholder="Search businesses, rentals, products, or services…" />
+      <button class="search-btn">🔍 Search</button>
+    </div>
+    <div class="hero-btns">
+      <a href="#businesses" class="btn-primary">Explore Businesses</a>
+      <a href="#cta" class="btn-outline">Register Your Business</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">12K+</div>
+        <div class="hero-stat-label">Businesses Listed</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">48K+</div>
+        <div class="hero-stat-label">Active Users</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">99K+</div>
+        <div class="hero-stat-label">Reviews</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">6</div>
+        <div class="hero-stat-label">States Covered</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-header center">
+    <div class="section-eyebrow">Platform Features</div>
+    <h2 class="section-title">Everything your community needs, in one place</h2>
+    <p class="section-sub">Green Report bundles six powerful tools so local businesses and residents never have to look elsewhere.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card fade-up">
+      <div class="feature-icon">🏢</div>
+      <h3>Business Directory</h3>
+      <p>A verified, searchable database of local businesses with rich profiles, contact info, and operating hours.</p>
+      <span class="feature-tag">Core</span>
+    </div>
+    <div class="feature-card fade-up delay-1">
+      <div class="feature-icon">🛍️</div>
+      <h3>Marketplace</h3>
+      <p>Buy and sell products locally with built-in payment, escrow, and delivery coordination.</p>
+      <span class="feature-tag">Commerce</span>
+    </div>
+    <div class="feature-card fade-up delay-2">
+      <div class="feature-icon">🏠</div>
+      <h3>Rental Listings</h3>
+      <p>Browse verified houses, apartments, and commercial spaces with virtual tours and direct landlord contact.</p>
+      <span class="feature-tag">Real Estate</span>
+    </div>
+    <div class="feature-card fade-up delay-3">
+      <div class="feature-icon">🗺️</div>
+      <h3>Interactive Maps</h3>
+      <p>Explore your city visually — filter by category, distance, and rating with real-time map overlays.</p>
+      <span class="feature-tag">Navigation</span>
+    </div>
+    <div class="feature-card fade-up delay-4">
+      <div class="feature-icon">🤖</div>
+      <h3>AI Assistant</h3>
+      <p>Ask anything in plain language. Our AI finds what you need, answers questions, and makes recommendations instantly.</p>
+      <span class="feature-tag">AI-Powered</span>
+    </div>
+    <div class="feature-card fade-up delay-5">
+      <div class="feature-icon">💬</div>
+      <h3>Reviews & Messaging</h3>
+      <p>Verified customer reviews and a built-in chat system to connect buyers, renters, and businesses directly.</p>
+      <span class="feature-tag">Community</span>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section class="map-section" id="map">
+  <div class="section-header">
+    <div class="section-eyebrow">Interactive Maps</div>
+    <h2 class="section-title">Your city, at a glance</h2>
+    <p class="section-sub">Pin any business or rental and explore your area with smart, filterable map views.</p>
+  </div>
+  <div class="map-container">
+    <div class="map-canvas">
+      <div class="map-grid"></div>
+      <!-- Roads -->
+      <div class="road road-h1"></div>
+      <div class="road road-h2"></div>
+      <div class="road road-v1"></div>
+      <div class="road road-v2"></div>
+      <div class="road road-v3"></div>
+      <!-- City blocks -->
+      <div class="block" style="top:10%;left:5%;width:18%;height:22%;"></div>
+      <div class="block" style="top:10%;left:32%;width:18%;height:22%;"></div>
+      <div class="block" style="top:10%;left:60%;width:14%;height:22%;"></div>
+      <div class="block" style="top:46%;left:5%;width:18%;height:14%;"></div>
+      <div class="block" style="top:46%;left:32%;width:18%;height:14%;"></div>
+      <div class="block" style="top:46%;left:60%;width:14%;height:14%;"></div>
+      <div class="block" style="top:70%;left:5%;width:18%;height:22%;"></div>
+      <div class="block" style="top:70%;left:32%;width:18%;height:22%;"></div>
+      <!-- Markers -->
+      <div class="map-marker" style="top:30%;left:22%;">
+        <div class="marker-pin green"><span>🍔</span></div>
+        <div class="marker-label">Mama's Kitchen</div>
+      </div>
+      <div class="map-marker" style="top:30%;left:45%;">
+        <div class="marker-pin dark"><span>💊</span></div>
+        <div class="marker-label">City Pharmacy</div>
+      </div>
+      <div class="map-marker" style="top:58%;left:68%;">
+        <div class="marker-pin light"><span>🏥</span></div>
+        <div class="marker-label">GreenCare Clinic</div>
+      </div>
+      <div class="map-marker" style="top:18%;left:68%;">
+        <div class="marker-pin green"><span>✂️</span></div>
+        <div class="marker-label">Premier Salon</div>
+      </div>
+      <div class="map-marker" style="top:72%;left:40%;">
+        <div class="marker-pin dark"><span>🏠</span></div>
+        <div class="marker-label">3BR Apartment</div>
+      </div>
+      <!-- User Location -->
+      <div class="map-user-dot">
+        <div class="user-pulse"></div>
+      </div>
+    </div>
+    <div class="map-panel">
+      <h3>📍 Nearby Businesses</h3>
+      <div class="nearby-item">
+        <div class="nearby-icon">🍔</div>
+        <div class="nearby-info">
+          <div class="nearby-name">Mama's Kitchen</div>
+          <div class="nearby-meta">⭐ 4.8 · Restaurant</div>
+        </div>
+        <div class="nearby-dist">0.3 km</div>
+      </div>
+      <div class="nearby-item">
+        <div class="nearby-icon">💊</div>
+        <div class="nearby-info">
+          <div class="nearby-name">City Pharmacy</div>
+          <div class="nearby-meta">⭐ 4.6 · Open Now</div>
+        </div>
+        <div class="nearby-dist">0.5 km</div>
+      </div>
+      <div class="nearby-item">
+        <div class="nearby-icon">✂️</div>
+        <div class="nearby-info">
+          <div class="nearby-name">Premier Salon</div>
+          <div class="nearby-meta">⭐ 4.9 · Beauty</div>
+        </div>
+        <div class="nearby-dist">0.7 km</div>
+      </div>
+      <div class="nearby-item">
+        <div class="nearby-icon">🏥</div>
+        <div class="nearby-info">
+          <div class="nearby-name">GreenCare Clinic</div>
+          <div class="nearby-meta">⭐ 4.7 · Healthcare</div>
+        </div>
+        <div class="nearby-dist">1.1 km</div>
+      </div>
+      <div class="nearby-item">
+        <div class="nearby-icon">🏠</div>
+        <div class="nearby-info">
+          <div class="nearby-name">3BR Apartment</div>
+          <div class="nearby-meta">₦85,000/mo · Available</div>
+        </div>
+        <div class="nearby-dist">1.4 km</div>
+      </div>
+      <div class="nearby-item">
+        <div class="nearby-icon">🛒</div>
+        <div class="nearby-info">
+          <div class="nearby-name">FreshMart Superstore</div>
+          <div class="nearby-meta">⭐ 4.5 · Grocery</div>
+        </div>
+        <div class="nearby-dist">1.8 km</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED BUSINESSES -->
+<section class="businesses" id="businesses">
+  <div class="section-header">
+    <div class="section-eyebrow">Featured Businesses</div>
+    <h2 class="section-title">Trusted by your community</h2>
+    <p class="section-sub">Verified local businesses ready to serve you today.</p>
+  </div>
+  <div class="biz-grid">
+    <div class="biz-card fade-up">
+      <div class="biz-thumb" style="background:linear-gradient(135deg,#ffecd2,#fcb69f);">🍕</div>
+      <div class="biz-body">
+        <div class="biz-cat">Restaurant</div>
+        <div class="biz-name">Mama's Kitchen</div>
+        <div class="stars">★★★★★ <span style="color:var(--gray-500);font-size:0.8rem;">(214)</span></div>
+        <div class="biz-meta">
+          <span class="biz-loc">📍 GRA, Port Harcourt</span>
+          <span class="biz-badge">Open Now</span>
+        </div>
+      </div>
+    </div>
+    <div class="biz-card fade-up delay-1">
+      <div class="biz-thumb" style="background:linear-gradient(135deg,#a8edea,#fed6e3);">💊</div>
+      <div class="biz-body">
+        <div class="biz-cat">Pharmacy</div>
+        <div class="biz-name">City Pharmacy</div>
+        <div class="stars">★★★★☆ <span style="color:var(--gray-500);font-size:0.8rem;">(182)</span></div>
+        <div class="biz-meta">
+          <span class="biz-loc">📍 Diobu, Port Harcourt</span>
+          <span class="verified-badge">✓ Verified</span>
+        </div>
+      </div>
+    </div>
+    <div class="biz-card fade-up delay-2">
+      <div class="biz-thumb" style="background:linear-gradient(135deg,#d299c2,#fef9d7);">✂️</div>
+      <div class="biz-body">
+        <div class="biz-cat">Beauty & Wellness</div>
+        <div class="biz-name">Premier Salon & Spa</div>
+        <div class="stars">★★★★★ <span style="color:var(--gray-500);font-size:0.8rem;">(96)</span></div>
+        <div class="biz-meta">
+          <span class="biz-loc">📍 Trans-Amadi</span>
+          <span class="biz-badge">Open Now</span>
+        </div>
+      </div>
+    </div>
+    <div class="biz-card fade-up delay-3">
+      <div class="biz-thumb" style="background:linear-gradient(135deg,#84fab0,#8fd3f4);">🏥</div>
+      <div class="biz-body">
+        <div class="biz-cat">Healthcare</div>
+        <div class="biz-name">GreenCare Medical</div>
+        <div class="stars">★★★★★ <span style="color:var(--gray-500);font-size:0.8rem;">(331)</span></div>
+        <div class="biz-meta">
+          <span class="biz-loc">📍 Old GRA</span>
+          <span class="verified-badge">✓ Verified</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RENTALS -->
+<section class="rentals" id="rentals">
+  <div class="section-header">
+    <div class="section-eyebrow">Featured Rentals</div>
+    <h2 class="section-title">Find your next home</h2>
+    <p class="section-sub">Verified rental listings with transparent pricing and direct owner contact.</p>
+  </div>
+  <div class="rentals-grid">
+    <div class="rental-card fade-up">
+      <div class="rental-img" style="background:linear-gradient(135deg,#667eea,#764ba2);">
+        🏡
+        <span class="rental-tag">For Rent</span>
+        <span class="rental-fav">♡</span>
+      </div>
+      <div class="rental-body">
+        <div class="rental-price">₦120,000 <span>/ month</span></div>
+        <div class="rental-name">Modern 3-Bedroom Duplex</div>
+        <div class="rental-loc">📍 GRA Phase 2, Port Harcourt</div>
+        <div class="rental-specs">
+          <span class="rental-spec">🛏 3 beds</span>
+          <span class="rental-spec">🚿 2 baths</span>
+          <span class="rental-spec">📐 180m²</span>
+        </div>
+      </div>
+    </div>
+    <div class="rental-card fade-up delay-1">
+      <div class="rental-img" style="background:linear-gradient(135deg,#f093fb,#f5576c);">
+        🏢
+        <span class="rental-tag">Available</span>
+        <span class="rental-fav">♡</span>
+      </div>
+      <div class="rental-body">
+        <div class="rental-price">₦65,000 <span>/ month</span></div>
+        <div class="rental-name">Self-Contain Studio Flat</div>
+        <div class="rental-loc">📍 Rumuola, Port Harcourt</div>
+        <div class="rental-specs">
+          <span class="rental-spec">🛏 1 bed</span>
+          <span class="rental-spec">🚿 1 bath</span>
+          <span class="rental-spec">📐 55m²</span>
+        </div>
+      </div>
+    </div>
+    <div class="rental-card fade-up delay-2">
+      <div class="rental-img" style="background:linear-gradient(135deg,#4facfe,#00f2fe);">
+        🏘️
+        <span class="rental-tag">New Listing</span>
+        <span class="rental-fav">♡</span>
+      </div>
+      <div class="rental-body">
+        <div class="rental-price">₦95,000 <span>/ month</span></div>
+        <div class="rental-name">2-Bedroom Apartment + BQ</div>
+        <div class="rental-loc">📍 Peter Odili Road</div>
+        <div class="rental-specs">
+          <span class="rental-spec">🛏 2 beds</span>
+          <span class="rental-spec">🚿 2 baths</span>
+          <span class="rental-spec">📐 120m²</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI ASSISTANT -->
+<section class="ai-section" id="ai">
+  <div class="ai-inner">
+    <div class="ai-copy">
+      <div class="section-eyebrow">AI Assistant</div>
+      <h2 class="section-title">Just ask. We'll find it.</h2>
+      <p class="section-sub">Our AI understands natural language so you can search the way you actually think — no filters, no menus, no friction.</p>
+      <ul class="ai-feature-list">
+        <li>Finds businesses, rentals, and products from a single question</li>
+        <li>Knows what's open right now in your area</li>
+        <li>Learns your preferences to make smarter suggestions over time</li>
+        <li>Available 24/7 — no waiting, no hold music</li>
+      </ul>
+    </div>
+    <div class="chat-window">
+      <div class="chat-header">
+        <div class="chat-avatar">🤖</div>
+        <div class="chat-header-info">
+          <div class="chat-header-name">Green AI Assistant</div>
+          <div class="chat-header-status">Online · Ready to help</div>
+        </div>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg msg-bot">
+          <div class="msg-avatar">🌿</div>
+          <div class="msg-bubble">Hi! I'm your Green Report assistant. What are you looking for today?</div>
+        </div>
+        <div class="msg msg-user">
+          <div class="msg-avatar">👤</div>
+          <div class="msg-bubble">Find restaurants near me.</div>
+        </div>
+        <div class="msg msg-bot">
+          <div class="msg-avatar">🌿</div>
+          <div class="msg-bubble">Found 12 restaurants within 2 km. Mama's Kitchen (⭐ 4.8) is 0.3 km away and open now. Also great: Spice Garden and The Grill House. Want directions?</div>
+        </div>
+        <div class="msg msg-user">
+          <div class="msg-avatar">👤</div>
+          <div class="msg-bubble">Show apartments under ₦70,000.</div>
+        </div>
+        <div class="msg msg-bot">
+          <div class="msg-avatar">🌿</div>
+          <div class="msg-bubble">I found 8 apartments in your price range. Top pick: a self-contain studio in Rumuola at ₦65,000/mo — verified listing, available immediately. Want to see photos?</div>
+        </div>
+      </div>
+      <div class="suggestion-chips">
+        <span class="chip" onclick="addMessage(this)">Which pharmacy is open now?</span>
+        <span class="chip" onclick="addMessage(this)">Best rated salons nearby</span>
+        <span class="chip" onclick="addMessage(this)">3-bedroom houses for rent</span>
+      </div>
+      <div class="chat-input-row">
+        <input class="chat-input" type="text" placeholder="Ask anything…" id="chatInput" onkeydown="if(event.key==='Enter')sendChat()" />
+        <button class="chat-send" onclick="sendChat()">➤</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <h2>Join the Green Report community</h2>
+  <p>Thousands of residents and businesses already trust Green Report to connect their local world.</p>
+  <div class="app-btns">
+    <a href="#" class="app-btn">
+      <span class="app-btn-icon">🤖</span>
+      <span class="app-btn-text">
+        <span class="app-btn-sub">Download on</span>
+        <span class="app-btn-name">Android App</span>
+      </span>
+    </a>
+    <a href="#" class="app-btn" style="opacity:0.6;cursor:not-allowed;">
+      <span class="app-btn-icon">🍎</span>
+      <span class="app-btn-text">
+        <span class="app-btn-sub">Coming Soon</span>
+        <span class="app-btn-name">iPhone</span>
+      </span>
+    </a>
+  </div>
+  <div class="cta-divider"></div>
+  <button class="cta-biz-btn">🏢 Register Your Business — It's Free</button>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="nav-logo" href="#">
+        <div class="nav-logo-mark">🌿</div>
+        <span class="nav-logo-text" style="color:white;">Green<span>Report</span></span>
+      </a>
+      <p>AI-powered local discovery connecting communities with trusted businesses, rentals, and services across Nigeria.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About</a>
+      <a href="#">Careers</a>
+      <a href="#">Blog</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <a href="#">Business Directory</a>
+      <a href="#">Rentals</a>
+      <a href="#">Marketplace</a>
+      <a href="#">AI Assistant</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Cookie Policy</a>
+      <a href="#">Advertise</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Green Report. All rights reserved.</p>
+    <div class="footer-social">
+      <a class="social-btn" href="#">𝕏</a>
+      <a class="social-btn" href="#">in</a>
+      <a class="social-btn" href="#">f</a>
+      <a class="social-btn" href="#">📸</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll animations
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Chip click
+  function addMessage(el) {
+    const text = el.textContent;
+    const msgs = document.getElementById('chatMessages');
+    msgs.innerHTML += `<div class="msg msg-user"><div class="msg-avatar">👤</div><div class="msg-bubble">${text}</div></div>`;
+    setTimeout(() => {
+      const responses = {
+        "Which pharmacy is open now?": "City Pharmacy on Diobu Road is open right now — closes at 10 PM. They have your location saved. Need directions?",
+        "Best rated salons nearby": "Premier Salon & Spa is the top-rated in your area (⭐ 4.9 · 96 reviews). They offer walk-ins on weekdays. Want to book?",
+        "3-bedroom houses for rent": "Found 5 three-bedroom properties nearby. The top pick: a duplex in GRA Phase 2 at ₦120,000/mo. Verified landlord, available now."
+      };
+      const reply = responses[text] || "Let me search that for you right now…";
+      msgs.innerHTML += `<div class="msg msg-bot"><div class="msg-avatar">🌿</div><div class="msg-bubble">${reply}</div></div>`;
+      msgs.scrollTop = msgs.scrollHeight;
+    }, 600);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function sendChat() {
+    const input = document.getElementById('chatInput');
+    const text = input.value.trim();
+    if (!text) return;
+    const msgs = document.getElementById('chatMessages');
+    msgs.innerHTML += `<div class="msg msg-user"><div class="msg-avatar">👤</div><div class="msg-bubble">${text}</div></div>`;
+    input.value = '';
+    setTimeout(() => {
+      msgs.innerHTML += `<div class="msg msg-bot"><div class="msg-avatar">🌿</div><div class="msg-bubble">Searching Green Report for "<strong>${text}</strong>"… I'll have results for you in a moment!</div></div>`;
+      msgs.scrollTop = msgs.scrollHeight;
+    }, 700);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+</script>
+</body>
+</html>
